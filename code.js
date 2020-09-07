@@ -42,13 +42,14 @@ function decimalAdjust(type, value, exp) {
 }
 
 
-function draw1(dataset1,dataset2,dataset3){
+function draw1(dataset1,dataset2,dataset3,dates3){
 
     config = {
 
 	    type: 'line',
         // plugins: [ChartAnnotation],
         data: {
+            labels: dates3,
             datasets: [{
                 label: 'Actual',
                 data: dataset1,
@@ -63,7 +64,7 @@ function draw1(dataset1,dataset2,dataset3){
                 order:2
             },
             {
-                label: 'Fit',
+                label: 'Model fit',
                 data: dataset2,
                 backgroundColor: [
                    chartColors.blue,
@@ -79,7 +80,7 @@ function draw1(dataset1,dataset2,dataset3){
 
             },
             {
-                label: 'Projection',
+                label: 'Model projection',
                 data: dataset3,
                 backgroundColor: [
                     chartColors.green,
@@ -118,17 +119,18 @@ function draw1(dataset1,dataset2,dataset3){
                 position: "center",
                 content: '20'
             },
-            scales: {
+            scales: {                       
                     xAxes: [{
 
                         type:"time",
+                        offset:true,
                         // distribution: "series",
                         time: {
                         // parser: 'YYYY-MM-DD',
-                        unit : 'day',
+                        // unit : 'day',
                         // unitStepSize: 20,
                         displayFormats: {
-                            'millisecond': 'MMM DD',
+                           'millisecond': 'MMM DD',
            'second': 'MMM DD',
            'minute': 'MMM DD',
            'hour': 'MMM DD',
@@ -144,16 +146,20 @@ function draw1(dataset1,dataset2,dataset3){
                             maxTicksLimit:5,
                             fontSize:10,
                             fontStyle:'normal',
-                            maxRotation:0,
-                            source:'auto',
+                            maxRotation:0, 
                             autoSkip:false,
-                            // max:new Date(2020,9,20),
-                            // min:new Date(2020,3,2), 
-                          userCallback: function(item, index) {
-                  if (!(index % 4)) 
-                    console.log(item);
-                    return item;
-               },                  
+                            source:'lables',  
+                            // stepSize:100,
+                            // UnitStepSize:100,   
+                            callback:function(value,index,values){
+
+                                if(index == values.length-1 || index%55 == 0){
+                                // console.log(value);
+                                return value;
+                            }
+
+                            },                      
+
                         },
                         gridLines: {
                             // display: false,
@@ -252,9 +258,8 @@ function draw1(dataset1,dataset2,dataset3){
         
 }
 
-function draw2(dataset1,dataset2,dataset3){
+function draw2(dataset1,dataset2,dataset3,dates3){
 
-    var ticks1 = [0,1000, 10000,100000];
     config = {
 
         type: 'line',
@@ -274,7 +279,7 @@ function draw2(dataset1,dataset2,dataset3){
                 order:2
             },
             {
-                label: 'Fit',
+                label: 'Model fit',
                 data: dataset2,
                 backgroundColor: [
                    chartColors.blue,
@@ -290,7 +295,7 @@ function draw2(dataset1,dataset2,dataset3){
 
             },
             {
-                label: 'Projection',
+                label: 'Model projection',
                 data: dataset3,
                 backgroundColor: [
                     chartColors.green,
@@ -312,16 +317,16 @@ function draw2(dataset1,dataset2,dataset3){
             maintainAspectRatio: false,
             aspectRatio:2,
             scales: {
-                    xAxes: [{
+                   xAxes: [{
 
                         type:"time",
-                        // distribution: "linear",
+                        // distribution: "series",
                         time: {
                         // parser: 'YYYY-MM-DD',
                         // unit : 'day',
                         // unitStepSize: 20,
                         displayFormats: {
-                             'millisecond': 'MMM DD',
+                           'millisecond': 'MMM DD',
            'second': 'MMM DD',
            'minute': 'MMM DD',
            'hour': 'MMM DD',
@@ -332,15 +337,21 @@ function draw2(dataset1,dataset2,dataset3){
            'year': 'MMM DD',
                             },
                         },
-                        scaleEndtValue: new Date(2020,8,19),
                         ticks: {
                             beginAtZero: false,
                             maxTicksLimit:5,
-                            StepSize:20,
                             fontSize:10,
                             fontStyle:'normal',
-                            maxRotation:0, 
-                            source:'labels',                             
+                            maxRotation:0,
+                            source:'lables',
+                            autoSkip:false,
+                            callback:function(value,index,values){
+
+                                if(index == values.length-1 || index%55 == 0){
+                                // console.log(value);
+                                return value;
+                            }
+                            },                         
                         },
                         gridLines: {
                             // display: false,
@@ -350,7 +361,7 @@ function draw2(dataset1,dataset2,dataset3){
                    }],
                     yAxes: [{
                     type:'linear',
-                    position:'right',
+                    position:'left',
                     ticks: {
                         beginAtZero: false,
                         maxTicksLimit:4,
@@ -441,8 +452,7 @@ function draw2(dataset1,dataset2,dataset3){
 
 function draw3(dataset1,dataset2,dataset3){
 
-    var ticks1 = [0,1000, 10000,100000];
-    config = {
+     config = {
 
         type: 'line',
         data: {
@@ -460,7 +470,7 @@ function draw3(dataset1,dataset2,dataset3){
                 order:2
             },
             {
-                label: 'Fit',
+                label: 'Model fit',
                 data: dataset2,
                 backgroundColor: [
                    chartColors.blue,
@@ -476,7 +486,7 @@ function draw3(dataset1,dataset2,dataset3){
 
             },
             {
-                label: 'Projection',
+                label: 'Model projection',
                 data: dataset3,
                 backgroundColor: [
                     chartColors.green,
@@ -507,7 +517,15 @@ function draw3(dataset1,dataset2,dataset3){
                         // unit : 'day',
                         // unitStepSize: 20,
                         displayFormats: {
-                            'day': 'MMM D'
+                           'millisecond': 'MMM DD',
+           'second': 'MMM DD',
+           'minute': 'MMM DD',
+           'hour': 'MMM DD',
+           'day': 'MMM DD',
+           'week': 'MMM DD',
+           'month': 'MMM DD',
+           'quarter': 'MMM DD',
+           'year': 'MMM DD',
                             },
                         },
                         ticks: {
@@ -515,7 +533,16 @@ function draw3(dataset1,dataset2,dataset3){
                             maxTicksLimit:5,
                             fontSize:10,
                             fontStyle:'normal',
-                            maxRotation:0,                              
+                            maxRotation:0,
+                            source:'lables',
+                            autoSkip:false,
+                            callback:function(value,index,values){
+
+                                if(index == values.length-1 || index%55 == 0){
+                                // console.log(value);
+                                return value;
+                            }
+                            },                         
                         },
                         gridLines: {
                             // display: false,
@@ -633,7 +660,7 @@ function draw4(dataset1,dataset2,dataset3){
                 order:2
             },
             {
-                label: 'Fit',
+                label: 'Model fit',
                 data: dataset2,
                 backgroundColor: [
                    chartColors.blue,
@@ -649,7 +676,7 @@ function draw4(dataset1,dataset2,dataset3){
 
             },
             {
-                label: 'Projection',
+                label: 'Model projection',
                 data: dataset3,
                 backgroundColor: [
                     chartColors.green,
@@ -680,7 +707,15 @@ function draw4(dataset1,dataset2,dataset3){
                         // unit : 'day',
                         // unitStepSize: 20,
                         displayFormats: {
-                            'day': 'MMM D'
+                           'millisecond': 'MMM DD',
+           'second': 'MMM DD',
+           'minute': 'MMM DD',
+           'hour': 'MMM DD',
+           'day': 'MMM DD',
+           'week': 'MMM DD',
+           'month': 'MMM DD',
+           'quarter': 'MMM DD',
+           'year': 'MMM DD',
                             },
                         },
                         ticks: {
@@ -688,7 +723,16 @@ function draw4(dataset1,dataset2,dataset3){
                             maxTicksLimit:5,
                             fontSize:10,
                             fontStyle:'normal',
-                            maxRotation:0,                              
+                            maxRotation:0,
+                            source:'lables',
+                            autoSkip:false,
+                            callback:function(value,index,values){
+
+                                if(index == values.length-1 || index%55 == 0){
+                                // console.log(value);
+                                return value;
+                            }
+                            },                         
                         },
                         gridLines: {
                             // display: false,
@@ -836,7 +880,15 @@ function draw5(dataset1,dataset2){
                         // unit : 'day',
                         // unitStepSize: 20,
                         displayFormats: {
-                            'day': 'MMM D'
+                           'millisecond': 'MMM DD',
+           'second': 'MMM DD',
+           'minute': 'MMM DD',
+           'hour': 'MMM DD',
+           'day': 'MMM DD',
+           'week': 'MMM DD',
+           'month': 'MMM DD',
+           'quarter': 'MMM DD',
+           'year': 'MMM DD',
                             },
                         },
                         ticks: {
@@ -844,7 +896,16 @@ function draw5(dataset1,dataset2){
                             maxTicksLimit:5,
                             fontSize:10,
                             fontStyle:'normal',
-                            maxRotation:0,                              
+                            maxRotation:0,
+                            source:'lables',
+                            autoSkip:false,
+                            callback:function(value,index,values){
+
+                                if(index == values.length-1 || index%55 == 0){
+                                // console.log(value);
+                                return value;
+                            }
+                            },                         
                         },
                         gridLines: {
                             // display: false,
@@ -1006,7 +1067,15 @@ function draw6(dataset1,dataset2){
                         // unit : 'day',
                         // unitStepSize: 20,
                         displayFormats: {
-                            'day': 'MMM D'
+                           'millisecond': 'MMM DD',
+           'second': 'MMM DD',
+           'minute': 'MMM DD',
+           'hour': 'MMM DD',
+           'day': 'MMM DD',
+           'week': 'MMM DD',
+           'month': 'MMM DD',
+           'quarter': 'MMM DD',
+           'year': 'MMM DD',
                             },
                         },
                         ticks: {
@@ -1014,7 +1083,16 @@ function draw6(dataset1,dataset2){
                             maxTicksLimit:5,
                             fontSize:10,
                             fontStyle:'normal',
-                            maxRotation:0,                              
+                            maxRotation:0,
+                            source:'lables',
+                            autoSkip:false,
+                            callback:function(value,index,values){
+
+                                if(index == values.length-1 || index%55 == 0){
+                                // console.log(value);
+                                return value;
+                            }
+                            },                         
                         },
                         gridLines: {
                             // display: false,
@@ -1077,7 +1155,3 @@ function draw6(dataset1,dataset2){
         }
         window.chart6 = new Chart(ctx6,config);    
 }
-
-// model
-// no of distrcts
-// 

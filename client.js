@@ -4,6 +4,8 @@ const entries=[];
 const database = [];
 var dates1=[];
 var dates2=[];
+var dates3=[];
+
 
 const ctx1 = document.getElementById('myChart1').getContext('2d');
 const ctx2 = document.getElementById('myChart2').getContext('2d');
@@ -168,6 +170,8 @@ async function draw_charts(actual,fit,projections,population){
 
 	dates1 =[];
 	dates2 =[];
+	dates3 =[];
+
 	const actual_inf = [],fit_inf=[],proj_inf=[];
 	const actual_des = [],fit_des=[],proj_des=[];
 	const actual_rec = [],fit_rec=[],proj_rec=[];
@@ -181,6 +185,7 @@ async function draw_charts(actual,fit,projections,population){
 		date = new Date(final_date);
 		date.setDate(final_date.getDate()-i);
 		dates1.push(date);
+		dates3.push(date);
 	}
 	dates1.reverse();
 
@@ -189,6 +194,7 @@ async function draw_charts(actual,fit,projections,population){
 		date = new Date(final_date);
 		date.setDate(final_date.getDate()+i);
 		dates2.push(date);
+		dates3.push(date);		
 	}
 	// console.log(dates2);
 
@@ -229,7 +235,7 @@ async function draw_charts(actual,fit,projections,population){
 	}
 	// console.log(proj_AI_cumul);
 	
-	draw1(actual_inf,fit_inf,proj_inf);	
+	draw1(actual_inf,fit_inf,proj_inf,dates3);	
 	draw2(actual_des,fit_des,proj_des);
 	draw3(actual_rec,fit_rec,proj_rec);
 	draw4(actual_I_c,fit_I_c,proj_I_c);
