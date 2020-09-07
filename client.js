@@ -81,7 +81,7 @@ async function district_event(){
 	const json = await response.json();
 	database.push(json);
 
-	console.log(json); 
+	// console.log(json); 
 
 	var population;
 	entries[0].forEach((element)=>{
@@ -246,7 +246,7 @@ async function draw_charts(actual,fit,projections,population){
 
 function on_actual(){
 
-	console.log(database);
+	// console.log(database);
 
 	let csvContent = "data:text/csv;charset=utf-8,";
 	csvContent += 'Date'+','+'Recovered'+','+'Deceased'+','+'Infected'+','+'Cumulative Infections'+'\n';
@@ -268,7 +268,7 @@ function on_actual(){
 
 function on_fit(){
 
-	console.log(database);
+	// console.log(database);
 
 	let csvContent = "data:text/csv;charset=utf-8,";
 	csvContent += 'Date'+','+'Susceptible'+','+'Asymptomatic'+','+'Infected'+','+'Recovered'+','+'Deceased'+','+'Cumulative Infections'+'\n';
@@ -290,7 +290,7 @@ function on_fit(){
 
 function on_projections(){
 
-	console.log(dates2);
+	// console.log(dates2);
 
 	let csvContent = "data:text/csv;charset=utf-8,";
 	csvContent += 'Date'+','+'Susceptible'+','+'Asymptomatic'+','+'Infected'+','+'Recovered'+','+'Deceased'+','+'Cumulative Infections'+'\n';
