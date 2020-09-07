@@ -1,264 +1,306 @@
-// window.jsPDF = require('jspdf');	
+const URL = window.location.hostname === ('127.0.0.1' || 'localhost') ? 'http://localhost:3000' : 'https://cryptic-bastion-76974.herokuapp.com';
+// const URL = "";
+const entries=[];
+const database = [];
+var dates1=[];
+var dates2=[];
 
-	const ctx1 = document.getElementById('myChart1').getContext('2d');
-	const ctx2 = document.getElementById('myChart2').getContext('2d');
-	const ctx3 = document.getElementById('myChart3').getContext('2d');
-	const ctx4 = document.getElementById('myChart4').getContext('2d');
-	const ctx5 = document.getElementById('myChart5').getContext('2d');
-	const ctx6 = document.getElementById('myChart6').getContext('2d');
-
-
-const del_tab = document.getElementById("Delhi");
-const mum_tab = document.getElementById("Mumbai");
-const ben_tab = document.getElementById("Bengaluru");
-
-console.log(window.location.hostname);
-const URL = window.location.hostname === ('127.0.0.1' || 'localhost') ? 'http://localhost:3000' : 'https://dstsupermodel.herokuapp.com';
-const delhi=[];
-const mumbai=[];
-const bengaluru=[];
-const delData=[];
-const mumData=[];
-const benData=[];
-const date_db=[];
+const ctx1 = document.getElementById('myChart1').getContext('2d');
+const ctx2 = document.getElementById('myChart2').getContext('2d');
+const ctx3 = document.getElementById('myChart3').getContext('2d');
+const ctx4 = document.getElementById('myChart4').getContext('2d');
+const ctx5 = document.getElementById('myChart5').getContext('2d');
+const ctx6 = document.getElementById('myChart6').getContext('2d');
 
 
-initialise();
-			
-	
-// async function get_json(){
+window.onload = function () {
 
-// 	url="https://api.covid19india.org/raw_data1.json";
-// 	const data = await fetch(url);
-// 	const json = await data.json();
-// 	// let date = Date.parse(json.raw_data[0].dateannounced);
-// 	const date = await Date.parse(json.raw_data[0].dateannounced);
-// 	// const date = await new Date();
-// 	// Date.setMonth(3);
-// 	// Date.setYear(2020);
 
-// 	// date_db.push(date);
-// 	// console.log(json.raw_data[0].dateannounced);
-// 	console.log(date.getMonth);
-// }
+    if (location.hash) {
+        window.scrollTo(0, 0);
+    
+};
+   
+    document.getElementById('customSwitch1').checked == false;
+    initialise();
+};
+
+function log_scale(){
+
+	if(document.getElementById('customSwitch1').checked == true){
+		window.chart1.options.scales.yAxes[0].type =  'logarithmic';
+        window.chart1.update();
+        window.chart2.options.scales.yAxes[0].type =  'logarithmic';
+        window.chart2.update();
+        window.chart3.options.scales.yAxes[0].type =  'logarithmic';
+        window.chart3.update();
+        window.chart4.options.scales.yAxes[0].type =  'logarithmic';
+        window.chart4.update();
+        window.chart5.options.scales.yAxes[0].type =  'logarithmic';
+        window.chart5.update();
+   	}
+	else{
+		window.chart1.options.scales.yAxes[0].type =  'linear';
+        window.chart1.update();	
+        window.chart2.options.scales.yAxes[0].type =  'linear';
+        window.chart2.update();	
+        window.chart3.options.scales.yAxes[0].type =  'linear';
+        window.chart3.update();	
+        window.chart4.options.scales.yAxes[0].type =  'linear';
+        window.chart4.update();	
+        window.chart5.options.scales.yAxes[0].type =  'linear';
+        window.chart5.update();	
+	}
+}
+
+async function district_event(){
+
+	 
+	 var district = document.getElementById("district");
+	 var state = document.getElementById("state");
+
+	 
+	 var selected_district = district.options[district.selectedIndex].value;
+	 var selected_state = state.options[state.selectedIndex].value;
+	 var parameters = {
+	 	'state'      :  selected_state,
+	 	'district'   :  selected_district
+	 }
+	 	// console.log('district event fired');
+
+	 	const response = await fetch(URL+'/csv',{
+		method: 'POST',
+		// mode:'no-cors',		
+		body: JSON.stringify(parameters),
+		headers:{
+			'content-type': 'application/json'
+		}
+	});
+	const json = await response.json();
+	database.push(json);
+
+	console.log(json); 
+
+	var population;
+	entries[0].forEach((element)=>{
+     	if(element.state === selected_state){   		
+     		
+     		for(let i =0; i<element.district.length ; i++){
+     			if(element.district[i] === selected_district){
+     				population = element.population[i];
+     				break;
+     			}
+     		}
+     	}
+     });
+
+	// console.log(population);
+	draw_charts(json.actual,json.fit,json.projections,population);
+	log_scale();
+	 
+};
+
+async function state_event(){
+
+	 
+	 var state = document.getElementById("state");
+	 var district = document.getElementById("district");
+	 
+	 var selected_state = state.options[state.selectedIndex].value;
+	 
+	 entries[0].forEach((element)=>{
+     	if(element.state === selected_state){
+     		
+     		district.innerHTML=`<div style="max-height:150px; overflow-y:scroll">`;
+     		for(let i =0; i<element.district.length ; i++){
+     			district.innerHTML += `<option value="${element.district[i]}">${element.district[i]}</option>`;
+     		}
+     		district.innerHTML += `</div>`;  
+       	}
+     });    
+
+     district_event(); 
+}
+
+async function populate_dropdown(){
+
+	 var state = document.getElementById("state");
+	 var district = document.getElementById("district");
+
+	 state.innerHTML +=`<div style="max-height:150px; overflow-y:scroll">`;
+	 entries[0].forEach((element)=>{
+     		state.innerHTML += `<option value="${element.state}">${element.state}</option>`;
+     	 	
+     });
+     district.innerHTML+=`</div>`;
+	 var selected_state = state.options[state.selectedIndex].value;
+	 entries[0].forEach((element)=>{
+     	if(element.state === selected_state){
+     		for(let i =0; i<element.district.length ; i++){
+     			district.innerHTML += `<option value="${element.district[i]}">${element.district[i]}</option>`;
+     		}
+     	}
+     });
+
+	return 1;
+}
+
 
 async function initialise(){
 const data = await fetch(URL+'/')
 const json = await data.json();
 
-// console.log("inside initialise");
-console.log(json);
-
-delhi.push(json.delhi);
-mumbai.push(json.mumbai);
-bengaluru.push(json.bengaluru);
-delData.push(json.delData);
-mumData.push(json.mumData);
-benData.push(json.benData);
-
-await on_delhi();
-
-// console.log(delhi[0]);
-// console.log(delhi[0].Ic);
-// draw_delhi(delhi,delData);
+entries.push(json.entries);
+// console.log(entries);
+populate_dropdown();
+district_event();
 }
 
-async function On_Plot(){
+async function draw_charts(actual,fit,projections,population){
 
-	console.log("Inside OnPLot");
-	const form = document.getElementById("form");
-	const formData = new FormData(form);
-	const parameters = {'Beta0' : formData.get('Beta0'),
-						'Beta1':formData.get('Beta1'),
-						'Beta2':formData.get('Beta2'),
-						'Gamma1':formData.get('Gamma1'),
-						'Gamma2':formData.get('Gamma2'),
-						'Delta':formData.get('Delta'),
-						'Gamma_D':formData.get('Gamma_D'),
-						'phi':formData.get('Phi'),
-						'A0' : formData.get('A0'),
-						'I0' : formData.get('I0'),
-						'S0' : formData.get('S0'),
-						'R0' : formData.get('R0'),
-						'N' : formData.get('N'),
-					};
-	console.log("parameters done");
-	console.log(parameters);	
+	const size1 = fit.Infected.length;
+	const size2 = projections.Infected.length;
 
-	if(del_tab.checked == true){
-	const response = await fetch(URL+'/delhi',{
-		method: 'POST',
-		body: JSON.stringify(parameters),
-		headers:{
-			'content-type': 'application/json'
-		}
-	});
-	const json = await response.json();
-	console.log(json);
-	db_update(json);
-	draw_delhi();
+
+	const projection_length = 67;
+	final_date = new Date(2020,7,15);
+	// console.log(final_date);
+
+	dates1 =[];
+	dates2 =[];
+	const actual_inf = [],fit_inf=[],proj_inf=[];
+	const actual_des = [],fit_des=[],proj_des=[];
+	const actual_rec = [],fit_rec=[],proj_rec=[];
+	const actual_I_c = [],fit_I_c=[],proj_I_c=[];
+	const fit_AI_cumul=[],proj_AI_cumul=[];
+	const fit_ratio=[],proj_ratio=[];
+
+		
+	for(let i=0 ; i<size1 ; i++){
+
+		date = new Date(final_date);
+		date.setDate(final_date.getDate()-i);
+		dates1.push(date);
 	}
-	if(mum_tab.checked == true){
-	const response = await fetch(URL+'/mumbai',{
-		method: 'POST',
-		body: JSON.stringify(parameters),
-		headers:{
-			'content-type': 'application/json'
-		}
-	});
-	const json = await response.json();
-	db_update(json);
-	draw_mumbai();
+	dates1.reverse();
+
+	for(let i=0 ; i<projection_length ; i++){
+
+		date = new Date(final_date);
+		date.setDate(final_date.getDate()+i);
+		dates2.push(date);
 	}
-	if(ben_tab.checked == true){
-	const response = await fetch(URL+'/bengaluru',{
-		method: 'POST',
-		body: JSON.stringify(parameters),
-		headers:{
-			'content-type': 'application/json'
-		}
-	});
-	const json = await response.json();
-	db_update(json);
-	draw_bengaluru(); 
-	}			
-}
+	// console.log(dates2);
 
-async function parse_date(data){
 
-	const deldata=[];	
-	for(let i=0 ; i<date_string.length ; i++){
-		let p = date_string[i].split("-");
-		// console.log(p[2], p[1], p[0]);
-		date.push(new Date(p[0],p[1]-1,p[2]));
+	for(let i=0 ; i<dates1.length ; i+=5){
+		actual_inf.push({x:dates1[i],y:actual.Infected[i]});
+		actual_des.push({x:dates1[i],y:actual.Deceased[i]});
+		actual_rec.push({x:dates1[i],y:actual.Recovered[i]});
+		actual_I_c.push({x:dates1[i],y:actual.I_c[i]});
 	}
-	return date;
-} 
 
-async function on_delhi(){
+	for(let i=0 ; i<dates1.length ; i++){
+		fit_inf.push({x:dates1[i],y:fit.Infected[i]});
+		fit_des.push({x:dates1[i],y:fit.Deceased[i]});
+		fit_rec.push({x:dates1[i],y:fit.Recovered[i]});
+		fit_I_c.push({x:dates1[i],y:fit.I_c[i]});
 
+		var y_temp = (1-(fit.Susceptible[i]/population))*population;
+		fit_AI_cumul.push({x:dates1[i],y:y_temp});
 
-	var N = 1.8e7;
-	var I0 = 1/N;
-	var A0 = 1/N;
-	var S0 = 1-(A0+I0);
- 	
-	document.getElementById("Beta0").defaultValue = "0.26";
-    document.getElementById("Beta1").defaultValue = "0.14";
-    document.getElementById("Beta2").defaultValue = "0.09";
-    document.getElementById("Gamma1").defaultValue = "0.039";
-    document.getElementById("Gamma2").defaultValue = "0.1";
-    document.getElementById("Delta").defaultValue = "0.01";
-    document.getElementById("Gamma_D").defaultValue = "0.004";
-    document.getElementById("N").defaultValue = N;
-    document.getElementById("I0").defaultValue = I0.toPrecision(5);
-	document.getElementById("A0").defaultValue = A0.toPrecision(5);
-    document.getElementById("S0").defaultValue = S0.toPrecision(5);
-    document.getElementById("R0").defaultValue = "0.0";
-    document.getElementById("Phi").defaultValue = "1.0";
-    
-    await draw_delhi();
-}
+		var z_temp = fit.Asymptomatic[i]/(fit.Infected[i]+fit.Asymptomatic[i]);
+		fit_ratio.push({x:dates1[i],y:z_temp});
 
-async function on_bengaluru(){
-    
-    var N = 1.23e7;
-	var I0 = 1/N;
-	var A0 = 1/N;
-	var S0 = 1-(A0+I0);
+	}
+	for(let i=0 ; i<67 ; i++){
 
-    document.getElementById("Beta0").defaultValue = "0.05";
-    document.getElementById("Beta1").defaultValue = "0.18";
-    document.getElementById("Beta2").defaultValue = "0.05";
-    document.getElementById("Gamma1").defaultValue = "0.034";
-    document.getElementById("Gamma2").defaultValue = "0.034";
-    document.getElementById("Delta").defaultValue = "0.0006";
-    document.getElementById("Gamma_D").defaultValue = "0.002";
-    document.getElementById("Phi").defaultValue = "1.0";
-    document.getElementById("A0").defaultValue = "0.26";
-    document.getElementById("I0").defaultValue = "0.14";
-    document.getElementById("S0").defaultValue = "0.09";
-    document.getElementById("R0").defaultValue = "0.039";
-    document.getElementById("N").defaultValue = "0.1";
-    document.getElementById("N").defaultValue = N;
-    document.getElementById("I0").defaultValue = I0.toPrecision(5);
-	document.getElementById("A0").defaultValue = A0.toPrecision(5);
-    document.getElementById("S0").defaultValue = S0.toPrecision(5);
-    document.getElementById("R0").defaultValue = "0.0";
-      
+		proj_inf.push({x:dates2[i],y:projections.Infected[i]});
+		proj_des.push({x:dates2[i],y:projections.Deceased[i]});
+		proj_rec.push({x:dates2[i],y:projections.Recovered[i]});
+		proj_I_c.push({x:dates2[i],y:projections.I_c[i]});
 
-    draw_bengaluru();
-}
+		var y_temp = (1-(projections.Susceptible[i]/population))*population;
+		proj_AI_cumul.push({x:dates2[i],y:y_temp});
 
-async function on_mumbai(){
+		var z_temp = projections.Asymptomatic[i]/(projections.Infected[i]+projections.Asymptomatic[i]);
+		proj_ratio.push({x:dates2[i],y:z_temp});
 
-	var N = 1.23e7;
-	var I0 = 1/N;
-	var A0 = 1/N;
-	var S0 = 1-(A0+I0);
-
-    document.getElementById("Beta0").defaultValue = "0.3";
-    document.getElementById("Beta1").defaultValue = "0.12";
-    document.getElementById("Beta2").defaultValue = "0.09";
-    document.getElementById("Gamma1").defaultValue = "0.029";
-    document.getElementById("Gamma2").defaultValue = "0.07";
-    document.getElementById("Delta").defaultValue = "0.0035";
-    document.getElementById("Gamma_D").defaultValue = "0.003";
-    document.getElementById("Phi").defaultValue = "1.0";
-    document.getElementById("A0").defaultValue = "0.26";
-    document.getElementById("I0").defaultValue = "0.14";
-    document.getElementById("S0").defaultValue = "0.09";
-    document.getElementById("R0").defaultValue = "0.039";
-    document.getElementById("N").defaultValue = "0.1";
-    document.getElementById("N").defaultValue = N;
-    document.getElementById("I0").defaultValue = I0.toPrecision(5);
-	document.getElementById("A0").defaultValue = A0.toPrecision(5);
-    document.getElementById("S0").defaultValue = S0.toPrecision(5);
-    document.getElementById("R0").defaultValue = "0.0";
-
-    await draw_mumbai();
+	}
+	// console.log(proj_AI_cumul);
+	
+	draw1(actual_inf,fit_inf,proj_inf);	
+	draw2(actual_des,fit_des,proj_des);
+	draw3(actual_rec,fit_rec,proj_rec);
+	draw4(actual_I_c,fit_I_c,proj_I_c);
+	draw5(fit_AI_cumul,proj_AI_cumul);
+	draw6(fit_ratio,proj_ratio);
 }
 
 
-async function draw_delhi(){
+function on_actual(){
 
-await draw1(ctx1,[delhi[0].Ac,delData[0].I]);
-await draw2(ctx2,[delhi[0].Idot,delData[0].deltaA]);
-await draw3(ctx3,[delhi[0].Ic,delData[0].Ic]);
-await draw4(ctx4,[delhi[0].Ddot,delData[0].gammaDI]);
-await draw5(ctx5,[delhi[0].Dc,delData[0].D]);
-await draw6(ctx6,[delData[0].D,delData[0].AplusI,delData[0].AplusI_c,delData[0].Ic]);
+	console.log(database);
+
+	let csvContent = "data:text/csv;charset=utf-8,";
+	csvContent += 'Date'+','+'Recovered'+','+'Deceased'+','+'Infected'+','+'Cumulative Infections'+'\n';
+	for(let i=0 ; i<database[0].actual.Infected.length; i++){
+		var date = dates1[i].getFullYear()+'-'+dates1[i].getMonth()+'-'+dates1[i].getDate();
+		// var date = delhi[0].Ic[i].x.getFullYear()+'-'+delhi[0].Ic[i].x.getMonth()+'-'+delhi[0].Ic[i].x.getDate();
+		var row = date+','+database[0].actual.Recovered[i]+','+database[0].actual.Deceased[i]+','+database[0].actual.Infected[i]+','+database[0].actual.I_c[i]+'\n';
+		csvContent += row;
+	}
+	var name = database[0].state+'_'+database[0].district+'_actual.csv';
+	var encodedUri = encodeURI(csvContent);
+	var link = document.createElement("a");
+	link.setAttribute("href", encodedUri);
+	link.setAttribute("download", name);
+	document.body.appendChild(link);
+
+	link.click();
 }
 
-async function draw_mumbai(){
+function on_fit(){
 
-await draw1(ctx1,[mumbai[0].Ac,mumData[0].I]);
-await draw2(ctx2,[mumbai[0].Idot,mumData[0].deltaA]);
-await draw3(ctx3,[mumbai[0].Ic,mumData[0].Ic]);
-await draw4(ctx4,[mumbai[0].Ddot,mumData[0].gammaDI]);
-await draw5(ctx5,[mumbai[0].Dc,mumData[0].D]);
-await draw6(ctx6,[mumData[0].D,mumData[0].AplusI,mumData[0].AplusI_c,mumData[0].Ic]);
+	console.log(database);
+
+	let csvContent = "data:text/csv;charset=utf-8,";
+	csvContent += 'Date'+','+'Susceptible'+','+'Asymptomatic'+','+'Infected'+','+'Recovered'+','+'Deceased'+','+'Cumulative Infections'+'\n';
+	for(let i=0 ; i<database[0].fit.Infected.length; i++){
+		var date = dates1[i].getFullYear()+'-'+dates1[i].getMonth()+'-'+dates1[i].getDate();
+		// var date = delhi[0].Ic[i].x.getFullYear()+'-'+delhi[0].Ic[i].x.getMonth()+'-'+delhi[0].Ic[i].x.getDate();
+		var row = date+','+database[0].fit.Susceptible[i]+','+database[0].fit.Asymptomatic[i]+','+database[0].fit.Infected[i]+','+database[0].fit.Recovered[i]+','+database[0].fit.Deceased[i]+','+database[0].fit.I_c[i]+'\n';
+		csvContent += row;
+	}
+	var name = database[0].state+'_'+database[0].district+'_fit.csv';
+	var encodedUri = encodeURI(csvContent);
+	var link = document.createElement("a");
+	link.setAttribute("href", encodedUri);
+	link.setAttribute("download", name);
+	document.body.appendChild(link);
+
+	link.click();
 }
 
-async function draw_bengaluru(){
+function on_projections(){
 
-await draw1(ctx1,[bengaluru[0].Ac,benData[0].I]);
-await draw2(ctx2,[bengaluru[0].Idot,benData[0].deltaA]);
-await draw3(ctx3,[bengaluru[0].Ic,benData[0].Ic]);
-await draw4(ctx4,[bengaluru[0].Ddot,benData[0].gammaDI]);
-await draw5(ctx5,[bengaluru[0].Dc,benData[0].D]);
-await draw6(ctx6,[benData[0].D,benData[0].AplusI,benData[0].AplusI_c,benData[0].Ic]);
-}
+	console.log(dates2);
 
-async function db_update(json){
+	let csvContent = "data:text/csv;charset=utf-8,";
+	csvContent += 'Date'+','+'Susceptible'+','+'Asymptomatic'+','+'Infected'+','+'Recovered'+','+'Deceased'+','+'Cumulative Infections'+'\n';
+	for(let i=0 ; i<67; i++){
+		var date = dates2[i].getFullYear()+'-'+dates2[i].getMonth()+'-'+dates2[i].getDate();
+		var row = date+','+database[0].projections.Susceptible[i]+','+database[0].projections.Asymptomatic[i]+','+database[0].projections.Infected[i]+','+database[0].projections.Recovered[i]+','+database[0].projections.Deceased[i]+','+database[0].projections.I_c[i]+'\n';
+		csvContent += row;
+	}
+	var name = database[0].state+'_'+database[0].district+'_projections.csv';
+	var encodedUri = encodeURI(csvContent);
+	var link = document.createElement("a");
+	link.setAttribute("href", encodedUri);
+	link.setAttribute("download", name);
+	document.body.appendChild(link);
 
-delData.pop();
-mumData.pop();
-benData.pop();
-
-delData.push(json.delData);
-mumData.push(json.mumData);
-benData.push(json.benData);
+	link.click();
 }
 
 document.getElementById("save1").addEventListener('click', function(){
@@ -297,10 +339,13 @@ document.getElementById("save6").addEventListener('click', function(){
 	 a.href = url_base64jp;
 });
 
-function On_Save(){
-	// var	pdf = new jsPDF('l', 'pt',[400,400gt0]);
- //  	pdf.addImage($(myChart1), 'PNG', 0, 0);
-  
- //  	// download the pdf
- //  	pdf.save('filename.pdf');
-}
+function get_csv(){
+
+	var csv = document.getElementById("csv");
+	if(csv.selectedIndex == 1)
+		on_actual();
+	else if(csv.selectedIndex == 2)
+		on_fit();
+	else if (csv.selectedIndex == 3)
+		on_projections();}
+

@@ -8,15 +8,15 @@ div.model_inputs{
 };
 
 div.sticky-offset{
-    top:100px;
+    top:80px;
 }
 
  div.sticky{
-    position: -webkit-sticky;
+    /*position: -webkit-sticky;*/
   position: sticky;
   /*top: 200px;*/
   /*background-color: yellow;*/
-  padding-top: 80px;
+  padding-top: 60px;
   font-size: 20px;
     /*padding: 50px;
     padding-top: 100*//*px;
@@ -31,15 +31,16 @@ div.sticky-offset{
     margin-left:20px;
     /*margin-right: :20px;*/
     text-align: right;
-    font-size: 12px
-
-
-}
+    font-size: 12px;
+  }
 .form-group input {
     display: inline-block;
     width: 40%;
     height: 30px;
-}
+ }
+ .form-group{
+    margin-bottom: 5px;
+ }
 
 
 .btn-primary{
@@ -69,12 +70,55 @@ h5{
     margin-left: 40px;
 }
 .save {
-  background-color: DodgerBlue;
-  border: none;
-  color: white;
+  /*background-color: DodgerBlue;*/
+  /*border: none;*/
+  /*color: white;*/
   /*padding: 12p    x 30px;*/
-  cursor: pointer;
-  font-size: 15px;
-  width:5% ;
+  /*cursor: pointer;*/
+  /*font-size: 15px;*/
+  /*width:5% ;*/
   /*margin-right: 0px;*/
 }
+
+@media screen and (min-width: 40rem){
+  .chart-container{
+    /*background-color: red;*/
+    /*height: 60rem;  */
+    height:450px
+  }
+}
+@media screen and (max-width: 40rem){
+  .chart-container{
+    /*background-color: blue  ;*/
+    /*height: 60rem;  */
+    height:330px
+  }
+}
+@media screen and (min-width: 992px) {
+  .small-screen {
+    /*display: none;*/
+  }
+}
+@media screen and (max-width: 992px) {
+  .big-screen {
+    /*display: none;*/
+  }
+}
+
+div.btn-mi-small{
+   /*align-items: center;*/
+   /*margin-left: 50%;*/
+   /*margin-right: 50%;*/
+   /*float: center;*/
+  /*margin: 0 auto;*/
+  /*text-align: center;*/
+  /*margin-left: 10%;*/
+
+}
+/*.small-btn{
+  float:center;
+   display: block;
+}*/
+/*#container {
+    overflow-anchor: none;
+}*/
