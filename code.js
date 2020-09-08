@@ -999,7 +999,7 @@ function draw6(dataset1,dataset2){
                 fill:false,
                 pointRadius:0,
                 pointBackgroundColor:'rgb(225,0,0,0.1)',
-                lineTension: 0,
+                lineTension: 1,
             },
             {
                 label: 'Projections',
@@ -1023,24 +1023,6 @@ function draw6(dataset1,dataset2){
             maintainAspectRatio: false,
             aspectRatio:2,
             scales: {
-                    annotation: {
-        annotations: [
-          {
-            drawTime: "afterDatasetsDraw",
-            type: "line",
-            mode: "vertical",
-            scaleID: "x-axis-0",
-            value: date,
-            borderWidth: 5,
-            borderColor: "red",
-            label: {
-              content: "TODAY",
-              enabled: true,
-              position: "top"
-            }
-          }
-        ]
-      },
                     xAxes: [{
 
                         type:"time",
@@ -1227,6 +1209,7 @@ function draw7(dataset){
                     ticks: {
                         beginAtZero: false,
                         minTicksLimit:3,
+                        maxTicksLimit:4,
                         autoSkip:false,                
                         fontSize:10, 
                         max:4,
