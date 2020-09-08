@@ -1209,16 +1209,28 @@ function draw7(dataset){
                     ticks: {
                         beginAtZero: false,
                         minTicksLimit:3,
-                        maxTicksLimit:4,
+                        // maxTicksLimit:4,
                         autoSkip:false,                
-                        fontSize:10, 
-                        max:4,
-                        min:0,                 
+                        fontSize:10,
+                        source:'lables', 
+                        max:5,
+                        min:0,    
+                        stepSize:1,
+           
                         },
+                       
                         gridLines: {
+                            color:[
+                            'rgb(225,225,225)',
+                            'rgb(225,225,225)', 
+                            'rgb(225,225,225)',                 
+                            'rgb(225,225,225)',
+                            'rgb(225,0,0)',
+                            ],
+
                             display: true,
                             drawOnChartArea:true,
-                            lineWidth:1,
+                            lineWidth:[1,1,1,1,1,1,2],
                             borderDash:[10,5],
                             },
 
