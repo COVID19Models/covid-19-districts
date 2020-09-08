@@ -1090,7 +1090,7 @@ function draw6(dataset1,dataset2){
                     ticks: {
                         beginAtZero: false,
                         maxTicksLimit:4,
-                        min:0,
+                        // min:0,
 
                         fontSize:10,                  
                     },
@@ -1226,7 +1226,7 @@ function draw7(dataset){
                     type:'linear',
                     ticks: {
                         beginAtZero: false,
-                        maxTicksLimit:4,
+                        minTicksLimit:3,
                         autoSkip:false,                
                         fontSize:10, 
                         max:4,
