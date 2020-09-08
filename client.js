@@ -189,7 +189,6 @@ async function draw_charts(actual,fit,projections,population){
 		// dates3.push(date);
 	}
 	dates1.reverse();
-	console.log("dates1",dates1);
 
 	for(let i=0 ; i<size2 ; i++){
 
@@ -199,7 +198,6 @@ async function draw_charts(actual,fit,projections,population){
 		// dates3.push(date);
 	}
 	dates2.reverse();
-	console.log("dates2",dates2);
 
 	for(let i=0 ; i<size3; i++){
 
@@ -207,9 +205,6 @@ async function draw_charts(actual,fit,projections,population){
 		date.setDate(final_date.getDate()+i);
 		dates3.push(date);
 	}
-	console.log("dates3",dates3);
-
-
 
 	for(let i=0 ; i<size1 ; i+=5){
 		actual_inf.push({x:dates1[i],y:actual.Infected[i]});
