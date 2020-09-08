@@ -153,7 +153,7 @@ function draw1(dataset1,dataset2,dataset3,dates3){
                             // UnitStepSize:100,   
                             callback:function(value,index,values){
 
-                                if(index == values.length-1 || index%55 == 0){
+                                if(index == values.length-1 || (index%50 == 0) && (index!==0)){
                                 // console.log(value);
                                 return value;
                             }
@@ -162,9 +162,13 @@ function draw1(dataset1,dataset2,dataset3,dates3){
 
                         },
                         gridLines: {
-                            // display: false,
-                            drawOnChartArea:false,
-                            lineWidth:2,
+                            display: true,
+                            zeroLineWidth:0,
+                            zeroLineColor: 'rgb(225,225,225)',
+                            drawOnChartArea:true,
+                            lineWidth:1,
+                            borderDash:[10,5],
+                            
                         },
                    }],
                     yAxes: [{
@@ -184,9 +188,6 @@ function draw1(dataset1,dataset2,dataset3,dates3){
                                 else if(value == 1000 || value == 10000 || value == 100000){
                                         return (new Number(value/1000)).toLocaleString() + 'K'  ;
                                 }
-                                 else {
-                                 return '';
-                                }
                             }
                             else{
                                return value/1000 + 'K';
@@ -204,10 +205,12 @@ function draw1(dataset1,dataset2,dataset3,dates3){
                     // return;
                     // },
                     gridLines: {
-                            // display: false
-                            drawOnChartArea:false,
-                            drawBorder:true,
-                            zeroLineWidth:2,
+                            display: true,
+                            zeroLineWidth:0,
+                            zeroLineColor: 'rgb(225,225,225)',
+                            drawOnChartArea:true,
+                            lineWidth:1,
+                            borderDash:[10,5],
                             },
 
                     }]
@@ -347,16 +350,19 @@ function draw2(dataset1,dataset2,dataset3,dates3){
                             autoSkip:false,
                             callback:function(value,index,values){
 
-                                if(index == values.length-1 || index%55 == 0){
+                                if(index == values.length-1 || (index%50 == 0 && index!=0)){
                                 // console.log(value);
                                 return value;
                             }
                             },                         
                         },
                         gridLines: {
-                            // display: false,
-                            drawOnChartArea:false,
-                            lineWidth:2,
+                             display: true,
+                            zeroLineWidth:0,
+                            zeroLineColor: 'rgb(225,225,225)',
+                            drawOnChartArea:true,
+                            lineWidth:1,
+                            borderDash:[10,5],
                         },
                    }],
                     yAxes: [{
@@ -378,9 +384,6 @@ function draw2(dataset1,dataset2,dataset3,dates3){
                                 else if(value == 1000 || value == 10000 || value == 100000){
                                         return (new Number(value/1000)).toLocaleString() + 'K'  ;
                                 }
-                                 else {
-                                 return '';
-                                }
                             }
                             else{
                                return value/1000 + 'K';
@@ -398,10 +401,12 @@ function draw2(dataset1,dataset2,dataset3,dates3){
                     // return;
                     // },
                     gridLines: {
-                            // display: false
-                            drawOnChartArea:false,
-                            drawBorder:true,
-                            zeroLineWidth:2,
+                             display: true,
+                            zeroLineWidth:0,
+                            zeroLineColor: 'rgb(225,225,225)',
+                            drawOnChartArea:true,
+                            lineWidth:1,
+                            borderDash:[10,5],
                             },
 
                     }]
@@ -538,16 +543,19 @@ function draw3(dataset1,dataset2,dataset3){
                             autoSkip:false,
                             callback:function(value,index,values){
 
-                                if(index == values.length-1 || index%55 == 0){
+                                if(index == values.length-1 || (index%50==0 && index!=0)){
                                 // console.log(value);
                                 return value;
                             }
                             },                         
                         },
                         gridLines: {
-                            // display: false,
-                            drawOnChartArea:false,
-                            lineWidth:2,
+                             display: true,
+                            zeroLineWidth:0,
+                            zeroLineColor: 'rgb(225,225,225)',
+                            drawOnChartArea:true,
+                            lineWidth:1,
+                            borderDash:[10,5],
                         },
                    }],
                     yAxes: [{
@@ -567,9 +575,6 @@ function draw3(dataset1,dataset2,dataset3){
                                 else if(value == 1000 || value == 10000 || value == 100000){
                                         return (new Number(value/1000)).toLocaleString() + 'K'  ;
                                 }
-                                 else {
-                                 return '';
-                                }
                             }
                             else{
                                return value/1000 + 'K';
@@ -587,10 +592,12 @@ function draw3(dataset1,dataset2,dataset3){
                     // return;
                     // },
                     gridLines: {
-                            // display: false
-                            drawOnChartArea:false,
-                            drawBorder:true,
-                            zeroLineWidth:2,
+                             display: true,
+                            zeroLineWidth:0,
+                            zeroLineColor: 'rgb(225,225,225)',
+                            drawOnChartArea:true,
+                            lineWidth:1,
+                            borderDash:[10,5],
                             },
 
                     }]
@@ -728,16 +735,19 @@ function draw4(dataset1,dataset2,dataset3){
                             autoSkip:false,
                             callback:function(value,index,values){
 
-                                if(index == values.length-1 || index%55 == 0){
+                                if(index == values.length-1 || (index%50==0 && index!=0)){
                                 // console.log(value);
                                 return value;
                             }
                             },                         
                         },
                         gridLines: {
-                            // display: false,
-                            drawOnChartArea:false,
-                            lineWidth:2,
+                              display: true,
+                            zeroLineWidth:0,
+                            zeroLineColor: 'rgb(225,225,225)',
+                            drawOnChartArea:true,
+                            lineWidth:1,
+                            borderDash:[10,5],
                         },
                    }],
                     yAxes: [{
@@ -751,14 +761,12 @@ function draw4(dataset1,dataset2,dataset3){
 
                             if(this.type === 'logarithmic'){
                                 const remain = value / (Math.pow(10, Math.floor(Chart.helpers.log10(value))));
+                                // console.log(value);
                                 if(value == 1 || value == 10 || value == 100){
                                         return (new Number(value)).toLocaleString();
                                 }
                                 else if(value == 1000 || value == 10000 || value == 100000){
                                         return (new Number(value/1000)).toLocaleString() + 'K'  ;
-                                }
-                                 else {
-                                 return '';
                                 }
                             }
                             else{
@@ -777,10 +785,12 @@ function draw4(dataset1,dataset2,dataset3){
                     // return;
                     // },
                     gridLines: {
-                            // display: false
-                            drawOnChartArea:false,
-                            drawBorder:true,
-                            zeroLineWidth:2,
+                              display: true,
+                            zeroLineWidth:0,
+                            zeroLineColor: 'rgb(225,225,225)',
+                            drawOnChartArea:true,
+                            lineWidth:1,
+                            borderDash:[10,5],
                             },
 
                     }]
@@ -901,16 +911,19 @@ function draw5(dataset1,dataset2){
                             autoSkip:false,
                             callback:function(value,index,values){
 
-                                if(index == values.length-1 || index%55 == 0){
+                                if(index == values.length-1 || (index%50==0 && index!=0)){
                                 // console.log(value);
                                 return value;
                             }
                             },                         
                         },
                         gridLines: {
-                            // display: false,
-                            drawOnChartArea:false,
-                            lineWidth:2,
+                              display: true,
+                            zeroLineWidth:0,
+                            zeroLineColor: 'rgb(225,225,225)',
+                            drawOnChartArea:true,
+                            lineWidth:1,
+                            borderDash:[10,5],
                         },
                    }],
                     yAxes: [{
@@ -935,9 +948,6 @@ function draw5(dataset1,dataset2){
                                         return (new Number(value/1000000).toLocaleString()) + 'M' ;
                                 }
                             
-                                 else {
-                                 return '';
-                                }
                             }
                             else{
                                if(value<1000000) 
@@ -950,10 +960,12 @@ function draw5(dataset1,dataset2){
                     },             
                                     
                     gridLines: {
-                             // display: false
-                            drawOnChartArea:false,
-                            drawBorder:true,
-                            zeroLineWidth:2,
+                               display: true,
+                            zeroLineWidth:0,
+                            zeroLineColor: 'rgb(225,225,225)',
+                            drawOnChartArea:true,
+                            lineWidth:1,
+                            borderDash:[10,5],
                             },
 
                     }]
@@ -1088,16 +1100,19 @@ function draw6(dataset1,dataset2){
                             autoSkip:false,
                             callback:function(value,index,values){
 
-                                if(index == values.length-1 || index%55 == 0){
+                                if(index == values.length-1 || (index%50==0 && index!=0)){
                                 // console.log(value);
                                 return value;
                             }
                             },                         
                         },
                         gridLines: {
-                            // display: false,
-                            drawOnChartArea:false,
-                            lineWidth:2,
+                             display: true,
+                            zeroLineWidth:0,
+                            zeroLineColor: 'rgb(225,225,225)',
+                            drawOnChartArea:true,
+                            lineWidth:1,
+                            borderDash:[10,5],
                         },
                    }],
                     yAxes: [{
@@ -1105,13 +1120,25 @@ function draw6(dataset1,dataset2){
                         beginAtZero: false,
                         maxTicksLimit:4,
 
+                            callback: function(value, index, values) {
+
+                            if(this.type === 'logarithmic'){
+                                return value;                            
+                            }
+                            else{
+                                return value;
+                            }
+                        },
+
                         fontSize:10,                  
                     },
                     gridLines: {
-                             // display: false
-                            drawOnChartArea:false,
-                            drawBorder:true,
-                            zeroLineWidth:2,
+                              display: true,
+                            zeroLineWidth:0,
+                            zeroLineColor: 'rgb(225,225,225)',
+                            drawOnChartArea:true,
+                            lineWidth:1,
+                            borderDash:[10,5],
                             },
 
                     }]

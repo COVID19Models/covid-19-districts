@@ -40,6 +40,8 @@ function log_scale(){
         window.chart4.update();
         window.chart5.options.scales.yAxes[0].type =  'logarithmic';
         window.chart5.update();
+        window.chart6.options.scales.yAxes[0].type =  'logarithmic';
+        window.chart6.update();
    	}
 	else{
 		window.chart1.options.scales.yAxes[0].type =  'linear';
@@ -51,7 +53,9 @@ function log_scale(){
         window.chart4.options.scales.yAxes[0].type =  'linear';
         window.chart4.update();	
         window.chart5.options.scales.yAxes[0].type =  'linear';
-        window.chart5.update();	
+        window.chart5.update();
+        window.chart6.options.scales.yAxes[0].type =  'linear';
+        window.chart6.update();	
 	}
 }
 
@@ -121,7 +125,7 @@ async function state_event(){
        	}
      });    
 
-     district_event(); 
+     await district_event(); 
 }
 
 async function populate_dropdown(){
@@ -164,8 +168,8 @@ async function draw_charts(actual,fit,projections,population){
 	const size2 = projections.Infected.length;
 
 
-	const projection_length = 67;
-	final_date = new Date(2020,7,15);
+	const projection_length = 61;
+	final_date = new Date(2020,7,31);
 	// console.log(final_date);
 
 	dates1 =[];
@@ -219,7 +223,7 @@ async function draw_charts(actual,fit,projections,population){
 		fit_ratio.push({x:dates1[i],y:z_temp});
 
 	}
-	for(let i=0 ; i<67 ; i++){
+	for(let i=0 ; i<projection_length ; i++){
 
 		proj_inf.push({x:dates2[i],y:projections.Infected[i]});
 		proj_des.push({x:dates2[i],y:projections.Deceased[i]});
@@ -290,7 +294,7 @@ function on_fit(){
 
 function on_projections(){
 
-	// console.log(dates2);
+	console.log(dates2);
 
 	let csvContent = "data:text/csv;charset=utf-8,";
 	csvContent += 'Date'+','+'Susceptible'+','+'Asymptomatic'+','+'Infected'+','+'Recovered'+','+'Deceased'+','+'Cumulative Infections'+'\n';
