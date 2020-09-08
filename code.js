@@ -118,8 +118,7 @@ function draw1(dataset1,dataset2,dataset3){
                             maxRotation:0, 
                             autoSkip:false,
                             source:'lables',  
-                            // stepSize:100,
-                            // UnitStepSize:100,   
+                              
                             callback:function(value,index,values){
 
                                 if(index == values.length-1 || (index%50 == 0) && (index!==0)){
@@ -323,7 +322,7 @@ function draw2(dataset1,dataset2,dataset3){
                             autoSkip:false,
                             callback:function(value,index,values){
 
-                                if(index == values.length-1 || (index%50 == 0 && index!=0)){
+                                if(index == values.length-1 || (index%60 == 0 && index!=0)){
                                 // console.log(value);
                                 return value;
                             }
@@ -999,7 +998,7 @@ function draw6(dataset1,dataset2){
                 borderWidth: 3,
                 fill:false,
                 pointRadius:0,
-                pointBackgroundColor:chartColors.red,
+                pointBackgroundColor:'rgb(225,0,0,0.1)',
                 lineTension: 0,
             },
             {
@@ -1091,6 +1090,7 @@ function draw6(dataset1,dataset2){
                     ticks: {
                         beginAtZero: false,
                         maxTicksLimit:4,
+                        min:0,
 
                         fontSize:10,                  
                     },
@@ -1144,3 +1144,144 @@ function draw6(dataset1,dataset2){
         }
         window.chart6 = new Chart(ctx6,config);    
 }
+
+function draw7(dataset){
+
+    // var ticks1 = [0,1000, 10000,100000];
+    config = {
+
+        type: 'bar',
+        data: {
+            datasets: [{
+                data: dataset,
+                borderColor: [
+                    chartColors.red,
+                    chartColors.red,
+                    chartColors.red,
+                    chartColors.red,
+                    chartColors.red,
+                    chartColors.red,
+                    chartColors.red,
+                    chartColors.red,                    
+                ],
+                 backgroundColor:[
+                    'rgb(255, 99, 132,0.2)',
+                    'rgb(255, 99, 132,0.2)',
+                    'rgb(255, 99, 132,0.2)',
+                    'rgb(255, 99, 132,0.2)',
+                    'rgb(255, 99, 132,0.2)',
+                    'rgb(255, 99, 132,0.2)',
+                    'rgb(255, 99, 132,0.2)',
+                    'rgb(255, 99, 132,0.2)',                    
+                 ],
+                 borderWidth:2,
+                 barThickness: 30,
+            }],
+        },
+        options: {
+            responsive:true,
+            bezierCurve: false,
+            maintainAspectRatio: false,
+            aspectRatio:2,
+            scales: {
+                    xAxes: [{
+                        type:"time",
+                        time: {
+                        displayFormats: {
+                           'millisecond': 'MMM DD',
+                           'second': 'MMM DD',
+                           'minute': 'MMM DD',
+                           'hour': 'MMM DD',
+                           'day': 'MMM DD',
+                           'week': 'MMM DD',
+                           'month': 'MMM DD',
+                           'quarter': 'MMM DD',
+                           'year': 'MMM DD',
+                            },
+                        },
+                        ticks: {
+                            fontSize:10,
+                            fontStyle:'normal',
+                            maxRotation:0,
+                            source:'lables',
+                            autoSkip:false,
+                            min : new Date(2020,4,5),
+                            max : new Date(2020,8,15),
+                            callback:function(value,index,values){                               
+                                if(value=="Aug 15" || value=="Aug 31" || value=="May 15" || value=="May 30" || value=="Jun 15" || value=="Jun 30" || value=="Jul 15" || value=="Jul 31")
+                                    // console.log(value);
+                                return value;                            
+                            },                         
+                        },
+                        gridLines: {
+                            display: true,
+                            zeroLineWidth:0,
+                            zeroLineColor: 'rgb(225,225,225)',
+                            drawOnChartArea:true,
+                            lineWidth:1,
+                            borderDash:[10,5],
+                        },
+                    }],
+                    yAxes: [{
+                    type:'linear',
+                    ticks: {
+                        beginAtZero: false,
+                        maxTicksLimit:4,
+                        autoSkip:false,                
+                        fontSize:10, 
+                        max:4,
+                        min:0,                 
+                        },
+                        gridLines: {
+                            display: true,
+                            drawOnChartArea:true,
+                            lineWidth:1,
+                            borderDash:[10,5],
+                            },
+
+                    }]
+                },
+                fill : false,
+                title: {
+                display: true,
+                position:'top',
+                text: 'Reproduction ratio',
+                fontSize: 18
+            },
+                legend:{
+                    // reverse:true,
+                    // position:'top',
+                    // fullWidth:false,
+                    display:false,
+
+                    // labels:{
+                    //     position:'top',
+                    //     align:'center',
+                    //     // boxHeight: 1,
+                    //     // boxWidth:20,   
+
+                    //   usePointStyle:true, 
+                    //   // pointStyle: "string",
+                    //     padding:20,
+                    // }
+                },
+                 layout: {
+                padding: {
+                left: 0,
+                right: 0,
+                top: 15,
+                bottom: 0
+            }
+            },
+            // events:['hover','tooltips'],
+            tooltips: {enabled: true},
+            hover: {mode: null}
+        }
+    };
+
+       if(window.chart7 != undefined){
+            window.chart7.destroy();
+        }
+        window.chart7 = new Chart(ctx7,config);    
+}
+

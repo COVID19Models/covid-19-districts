@@ -17,6 +17,7 @@ const ctx3 = document.getElementById('myChart3').getContext('2d');
 const ctx4 = document.getElementById('myChart4').getContext('2d');
 const ctx5 = document.getElementById('myChart5').getContext('2d');
 const ctx6 = document.getElementById('myChart6').getContext('2d');
+const ctx7 = document.getElementById('myChart7').getContext('2d');
 
 
 window.onload = function () {
@@ -89,7 +90,7 @@ async function district_event(){
 	const json = await response.json();
 	database.push(json);
 
-	// console.log(json); 
+	console.log(json); 
 
 	var population;
 	entries[0].forEach((element)=>{
@@ -105,7 +106,7 @@ async function district_event(){
      });
 
 	// console.log(population);
-	draw_charts(json.actual,json.fit,json.projections,population);
+	draw_charts(json.actual,json.fit,json.projections,json.repr_ratio,population);
 	log_scale();
 	 
 };
@@ -166,7 +167,7 @@ populate_dropdown();
 district_event();
 }
 
-async function draw_charts(actual,fit,projections,population){
+async function draw_charts(actual,fit,projections,repr_ratio,population){
 
 	size1 = actual.Infected.length;
 	size2 = fit.Infected.length;
@@ -247,6 +248,7 @@ async function draw_charts(actual,fit,projections,population){
 	draw4(actual_I_c,fit_I_c,proj_I_c);
 	draw5(fit_AI_cumul,proj_AI_cumul);
 	draw6(fit_ratio,proj_ratio);
+	draw7(repr_ratio);
 }
 
 
@@ -347,6 +349,11 @@ document.getElementById("save5").addEventListener('click', function(){
 document.getElementById("save6").addEventListener('click', function(){
 	 var url_base64jp = document.getElementById("myChart6").toDataURL("image/jpg");
 	 var a =  document.getElementById("save6");
+	 a.href = url_base64jp;
+});
+document.getElementById("save7").addEventListener('click', function(){
+	 var url_base64jp = document.getElementById("myChart6").toDataURL("image/jpg");
+	 var a =  document.getElementById("save7");
 	 a.href = url_base64jp;
 });
 
