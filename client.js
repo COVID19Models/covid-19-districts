@@ -38,7 +38,7 @@ function log_scale(){
         window.chart3.update();
         window.chart4.options.scales.yAxes[0].type =  'logarithmic';
         window.chart4.update();
-        window.chart5.options.scales.yAxes[0].content-typee =  'logarithmic';
+        window.chart5.options.scales.yAxes[0].type =  'logarithmic';
         window.chart5.update();
         window.chart6.options.scales.yAxes[0].type =  'logarithmic';
         window.chart6.update();
@@ -189,7 +189,7 @@ async function draw_charts(actual,fit,projections,population){
 		date = new Date(final_date);
 		date.setDate(final_date.getDate()-i);
 		dates1.push(date);
-		dates3.push(date);
+		// dates3.push(date);
 	}
 	dates1.reverse();
 
@@ -198,7 +198,7 @@ async function draw_charts(actual,fit,projections,population){
 		date = new Date(final_date);
 		date.setDate(final_date.getDate()+i);
 		dates2.push(date);
-		dates3.push(date);		
+		// dates3.push(date);		
 	}
 	// console.log(dates2);
 

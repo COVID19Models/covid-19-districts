@@ -11,45 +11,14 @@ const chartColors = {
 
 };
 
-function updateScale(chart) {
-            chart.options.scales.yAxes[0] = {
-                type: 'logarithmic',
-            }
 
-            // chart.options.scales.yAxes[0].ticks.min = 1000;
-            chart.update();
-
-}
-
-const round10 = (value, exp) => decimalAdjust('round', value, exp);
-function decimalAdjust(type, value, exp) {
-  // If the exp is undefined or zero...
-  if (typeof exp === 'undefined' || +exp === 0) {
-    return Math[type](value);
-  }
-  value = +value;
-  exp = +exp;
-  // If the value is not a number or the exp is not an integer...
-  if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
-    return NaN;
-  }
-  // Shift
-  value = value.toString().split('e');
-  value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
-  // Shift back
-  value = value.toString().split('e');
-  return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
-}
-
-
-function draw1(dataset1,dataset2,dataset3,dates3){
+function draw1(dataset1,dataset2,dataset3){
 
     config = {
 
 	    type: 'line',
         // plugins: [ChartAnnotation],
         data: {
-            labels: dates3,
             datasets: [{
                 label: 'Actual',
                 data: dataset1,
@@ -192,7 +161,6 @@ function draw1(dataset1,dataset2,dataset3,dates3){
                                 {
                                     return (new Number(value/1000)).toLocaleString() + 'K';
                                 }
-                                else return value;
                             }
                             else{
                                return value/1000 + 'K';
@@ -266,7 +234,7 @@ function draw1(dataset1,dataset2,dataset3,dates3){
         
 }
 
-function draw2(dataset1,dataset2,dataset3,dates3){
+function draw2(dataset1,dataset2,dataset3){
 
     config = {
 
