@@ -2,9 +2,13 @@ const URL = window.location.hostname === ('127.0.0.1' || 'localhost') ? 'http://
 // const URL = "";
 const entries=[];
 const database = [];
-var dates1=[];
-var dates2=[];
-var dates3=[];
+const dates1=[];
+const dates2=[];
+const dates3=[];
+const projection_length = 61;
+const final_date = new Date(2020,7,31);
+var size1,size2,size3;
+
 
 
 const ctx1 = document.getElementById('myChart1').getContext('2d');
@@ -85,7 +89,7 @@ async function district_event(){
 	const json = await response.json();
 	database.push(json);
 
-	// console.log(json); 
+	console.log(json); 
 
 	var population;
 	entries[0].forEach((element)=>{
@@ -164,17 +168,16 @@ district_event();
 
 async function draw_charts(actual,fit,projections,population){
 
-	const size1 = fit.Infected.length;
-	const size2 = projections.Infected.length;
+	size1 = actual.Infected.length;
+	size2 = fit.Infected.length;
+	size3 = projections.Infected.length;
 
 
-	const projection_length = 61;
-	final_date = new Date(2020,7,31);
-	// console.log(final_date);
 
-	dates1 =[];
-	dates2 =[];
-	dates3 =[];
+	console.log("actual inf",actual);
+	console.log("fit_inf",fit);
+	console.log("proj_inf",projections);
+
 
 	const actual_inf = [],fit_inf=[],proj_inf=[];
 	const actual_des = [],fit_des=[],proj_des=[];
@@ -182,6 +185,13 @@ async function draw_charts(actual,fit,projections,population){
 	const actual_I_c = [],fit_I_c=[],proj_I_c=[];
 	const fit_AI_cumul=[],proj_AI_cumul=[];
 	const fit_ratio=[],proj_ratio=[];
+
+	console.log(final_date);
+	console.log(size1);
+	console.log(size2);
+	console.log(size3);
+
+
 
 		
 	for(let i=0 ; i<size1 ; i++){
@@ -192,54 +202,69 @@ async function draw_charts(actual,fit,projections,population){
 		// dates3.push(date);
 	}
 	dates1.reverse();
+	console.log("dates1",dates1);
 
-	for(let i=0 ; i<projection_length ; i++){
+	for(let i=0 ; i<size2 ; i++){
+
+		date = new Date(final_date);
+		date.setDate(final_date.getDate()-i);
+		dates2.push(date);
+		// dates3.push(date);
+	}
+	dates2.reverse();
+	console.log("dates2",dates2);
+
+	for(let i=0 ; i<size3; i++){
 
 		date = new Date(final_date);
 		date.setDate(final_date.getDate()+i);
-		dates2.push(date);
-		// dates3.push(date);		
+		dates3.push(date);
 	}
-	// console.log(dates2);
+	console.log("dates3",dates3);
 
 
-	for(let i=0 ; i<dates1.length ; i+=5){
+
+	for(let i=0 ; i<size1 ; i+=5){
 		actual_inf.push({x:dates1[i],y:actual.Infected[i]});
 		actual_des.push({x:dates1[i],y:actual.Deceased[i]});
 		actual_rec.push({x:dates1[i],y:actual.Recovered[i]});
 		actual_I_c.push({x:dates1[i],y:actual.I_c[i]});
 	}
 
-	for(let i=0 ; i<dates1.length ; i++){
-		fit_inf.push({x:dates1[i],y:fit.Infected[i]});
-		fit_des.push({x:dates1[i],y:fit.Deceased[i]});
-		fit_rec.push({x:dates1[i],y:fit.Recovered[i]});
-		fit_I_c.push({x:dates1[i],y:fit.I_c[i]});
+	for(let i=0 ; i<size2;i++){
+		fit_inf.push({x:dates2[i],y:fit.Infected[i]});
+		fit_des.push({x:dates2[i],y:fit.Deceased[i]});
+		fit_rec.push({x:dates2[i],y:fit.Recovered[i]});
+		fit_I_c.push({x:dates2[i],y:fit.I_c[i]});
 
 		var y_temp = (1-(fit.Susceptible[i]/population))*population;
-		fit_AI_cumul.push({x:dates1[i],y:y_temp});
+		fit_AI_cumul.push({x:dates2[i],y:y_temp});
 
 		var z_temp = fit.Asymptomatic[i]/(fit.Infected[i]+fit.Asymptomatic[i]);
-		fit_ratio.push({x:dates1[i],y:z_temp});
+		fit_ratio.push({x:dates2[i],y:z_temp});
 
 	}
 	for(let i=0 ; i<projection_length ; i++){
 
-		proj_inf.push({x:dates2[i],y:projections.Infected[i]});
-		proj_des.push({x:dates2[i],y:projections.Deceased[i]});
-		proj_rec.push({x:dates2[i],y:projections.Recovered[i]});
-		proj_I_c.push({x:dates2[i],y:projections.I_c[i]});
+		proj_inf.push({x:dates3[i],y:projections.Infected[i]});
+		proj_des.push({x:dates3[i],y:projections.Deceased[i]});
+		proj_rec.push({x:dates3[i],y:projections.Recovered[i]});
+		proj_I_c.push({x:dates3[i],y:projections.I_c[i]});
 
 		var y_temp = (1-(projections.Susceptible[i]/population))*population;
-		proj_AI_cumul.push({x:dates2[i],y:y_temp});
+		proj_AI_cumul.push({x:dates3[i],y:y_temp});
 
 		var z_temp = projections.Asymptomatic[i]/(projections.Infected[i]+projections.Asymptomatic[i]);
-		proj_ratio.push({x:dates2[i],y:z_temp});
+		proj_ratio.push({x:dates3[i],y:z_temp});
 
 	}
 	// console.log(proj_AI_cumul);
+	console.log("actual inf",actual_inf);
+	console.log("fit_inf",fit_inf);
+	console.log("proj_inf",proj_inf);
+
 	
-	draw1(actual_inf,fit_inf,proj_inf,dates3);	
+	draw1(actual_inf,fit_inf,proj_inf);	
 	draw2(actual_des,fit_des,proj_des);
 	draw3(actual_rec,fit_rec,proj_rec);
 	draw4(actual_I_c,fit_I_c,proj_I_c);
@@ -250,11 +275,11 @@ async function draw_charts(actual,fit,projections,population){
 
 function on_actual(){
 
-	// console.log(database);
+	console.log("on actual",dates1);
 
 	let csvContent = "data:text/csv;charset=utf-8,";
 	csvContent += 'Date'+','+'Recovered'+','+'Deceased'+','+'Infected'+','+'Cumulative Infections'+'\n';
-	for(let i=0 ; i<database[0].actual.Infected.length; i++){
+	for(let i=0 ; i<size1; i++){
 		var date = dates1[i].getFullYear()+'-'+dates1[i].getMonth()+'-'+dates1[i].getDate();
 		// var date = delhi[0].Ic[i].x.getFullYear()+'-'+delhi[0].Ic[i].x.getMonth()+'-'+delhi[0].Ic[i].x.getDate();
 		var row = date+','+database[0].actual.Recovered[i]+','+database[0].actual.Deceased[i]+','+database[0].actual.Infected[i]+','+database[0].actual.I_c[i]+'\n';
@@ -272,12 +297,12 @@ function on_actual(){
 
 function on_fit(){
 
-	// console.log(database);
+	// console.log();
 
 	let csvContent = "data:text/csv;charset=utf-8,";
 	csvContent += 'Date'+','+'Susceptible'+','+'Asymptomatic'+','+'Infected'+','+'Recovered'+','+'Deceased'+','+'Cumulative Infections'+'\n';
-	for(let i=0 ; i<database[0].fit.Infected.length; i++){
-		var date = dates1[i].getFullYear()+'-'+dates1[i].getMonth()+'-'+dates1[i].getDate();
+	for(let i=0 ; i<size2; i++){
+		var date = dates2[i].getFullYear()+'-'+dates2[i].getMonth()+'-'+dates2[i].getDate();
 		// var date = delhi[0].Ic[i].x.getFullYear()+'-'+delhi[0].Ic[i].x.getMonth()+'-'+delhi[0].Ic[i].x.getDate();
 		var row = date+','+database[0].fit.Susceptible[i]+','+database[0].fit.Asymptomatic[i]+','+database[0].fit.Infected[i]+','+database[0].fit.Recovered[i]+','+database[0].fit.Deceased[i]+','+database[0].fit.I_c[i]+'\n';
 		csvContent += row;
@@ -294,12 +319,12 @@ function on_fit(){
 
 function on_projections(){
 
-	console.log(dates2);
+	// console.log(dates2);
 
 	let csvContent = "data:text/csv;charset=utf-8,";
 	csvContent += 'Date'+','+'Susceptible'+','+'Asymptomatic'+','+'Infected'+','+'Recovered'+','+'Deceased'+','+'Cumulative Infections'+'\n';
-	for(let i=0 ; i<67; i++){
-		var date = dates2[i].getFullYear()+'-'+dates2[i].getMonth()+'-'+dates2[i].getDate();
+	for(let i=0 ; i<projection_length; i++){
+		var date = dates3[i].getFullYear()+'-'+dates3[i].getMonth()+'-'+dates3[i].getDate();
 		var row = date+','+database[0].projections.Susceptible[i]+','+database[0].projections.Asymptomatic[i]+','+database[0].projections.Infected[i]+','+database[0].projections.Recovered[i]+','+database[0].projections.Deceased[i]+','+database[0].projections.I_c[i]+'\n';
 		csvContent += row;
 	}
