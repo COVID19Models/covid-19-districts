@@ -188,6 +188,11 @@ function draw1(dataset1,dataset2,dataset3,dates3){
                                 else if(value == 1000 || value == 10000 || value == 100000){
                                         return (new Number(value/1000)).toLocaleString() + 'K'  ;
                                 }
+                                else if(index == values.length -1 && value>1000)
+                                {
+                                    return (new Number(value/1000)).toLocaleString() + 'K';
+                                }
+                                else return value;
                             }
                             else{
                                return value/1000 + 'K';
@@ -568,7 +573,7 @@ function draw3(dataset1,dataset2,dataset3){
                         callback: function(value, index, values) {
 
                             if(this.type === 'logarithmic'){
-                                const remain = value / (Math.pow(10, Math.floor(Chart.helpers.log10(value))));
+                                this.min = 1;
                                 if(value == 1 || value == 10 || value == 100){
                                         return (new Number(value)).toLocaleString();
                                 }
@@ -760,8 +765,7 @@ function draw4(dataset1,dataset2,dataset3){
                         callback: function(value, index, values) {
 
                             if(this.type === 'logarithmic'){
-                                const remain = value / (Math.pow(10, Math.floor(Chart.helpers.log10(value))));
-                                // console.log(value);
+                                this.min = 1;
                                 if(value == 1 || value == 10 || value == 100){
                                         return (new Number(value)).toLocaleString();
                                 }
@@ -937,7 +941,7 @@ function draw5(dataset1,dataset2){
                         callback: function(value, index, values) {
 
                             if(this.type === 'logarithmic'){
-                                const remain = value / (Math.pow(10, Math.floor(Chart.helpers.log10(value))));
+                                this.min = 1;
                                 if(value == 1 || value == 10 || value == 100 ){
                                         return (new Number(value)).toLocaleString();
                                 }
@@ -1119,16 +1123,6 @@ function draw6(dataset1,dataset2){
                     ticks: {
                         beginAtZero: false,
                         maxTicksLimit:4,
-
-                            callback: function(value, index, values) {
-
-                            if(this.type === 'logarithmic'){
-                                return value;                            
-                            }
-                            else{
-                                return value;
-                            }
-                        },
 
                         fontSize:10,                  
                     },
