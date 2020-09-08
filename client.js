@@ -89,7 +89,7 @@ async function district_event(){
 	const json = await response.json();
 	database.push(json);
 
-	console.log(json); 
+	// console.log(json); 
 
 	var population;
 	entries[0].forEach((element)=>{
@@ -173,25 +173,12 @@ async function draw_charts(actual,fit,projections,population){
 	size3 = projections.Infected.length;
 
 
-
-	console.log("actual inf",actual);
-	console.log("fit_inf",fit);
-	console.log("proj_inf",projections);
-
-
 	const actual_inf = [],fit_inf=[],proj_inf=[];
 	const actual_des = [],fit_des=[],proj_des=[];
 	const actual_rec = [],fit_rec=[],proj_rec=[];
 	const actual_I_c = [],fit_I_c=[],proj_I_c=[];
 	const fit_AI_cumul=[],proj_AI_cumul=[];
 	const fit_ratio=[],proj_ratio=[];
-
-	console.log(final_date);
-	console.log(size1);
-	console.log(size2);
-	console.log(size3);
-
-
 
 		
 	for(let i=0 ; i<size1 ; i++){
@@ -258,11 +245,6 @@ async function draw_charts(actual,fit,projections,population){
 		proj_ratio.push({x:dates3[i],y:z_temp});
 
 	}
-	// console.log(proj_AI_cumul);
-	console.log("actual inf",actual_inf);
-	console.log("fit_inf",fit_inf);
-	console.log("proj_inf",proj_inf);
-
 	
 	draw1(actual_inf,fit_inf,proj_inf);	
 	draw2(actual_des,fit_des,proj_des);
@@ -275,7 +257,6 @@ async function draw_charts(actual,fit,projections,population){
 
 function on_actual(){
 
-	console.log("on actual",dates1);
 
 	let csvContent = "data:text/csv;charset=utf-8,";
 	csvContent += 'Date'+','+'Recovered'+','+'Deceased'+','+'Infected'+','+'Cumulative Infections'+'\n';
