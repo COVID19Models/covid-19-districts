@@ -999,7 +999,7 @@ function draw6(dataset1,dataset2){
                 fill:false,
                 pointRadius:0,
                 pointBackgroundColor:'rgb(225,0,0,0.1)',
-                lineTension: 1,
+                lineTension: 0,
             },
             {
                 label: 'Projections',
@@ -1071,9 +1071,25 @@ function draw6(dataset1,dataset2){
                     yAxes: [{
                     ticks: {
                         beginAtZero: false,
-                        maxTicksLimit:4,
-                        // min:0,
+                        maxTicksLimit:5,
+                        // source:'lables',
+                        autoSkip:false,
+                        min:0,
+                        max:1,
+                        stepSize:0.25,
+                        callback:function(value,index,values){
 
+                                if(this.type === "logarithmic")
+                                {
+                                    if(value == 0.2 || value == 0.4 || value== 0.6 || value == 0.8 || value == 1)
+                                    {                                        
+                                        return value;
+                                    }
+                                }
+                                else{
+                                    return value;
+                                }
+                            },     
                         fontSize:10,                  
                     },
                     gridLines: {
@@ -1191,7 +1207,6 @@ function draw7(dataset){
                             max : new Date(2020,8,15),
                             callback:function(value,index,values){                               
                                 if(value=="Aug 15" || value=="Aug 31" || value=="May 15" || value=="May 30" || value=="Jun 15" || value=="Jun 30" || value=="Jul 15" || value=="Jul 31")
-                                    // console.log(value);
                                 return value;                            
                             },                         
                         },
@@ -1209,7 +1224,6 @@ function draw7(dataset){
                     ticks: {
                         beginAtZero: false,
                         minTicksLimit:3,
-                        // maxTicksLimit:4,
                         autoSkip:false,                
                         fontSize:10,
                         source:'lables', 

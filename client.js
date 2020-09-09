@@ -223,7 +223,11 @@ async function draw_charts(actual,fit,projections,repr_ratio,population){
 		var y_temp = (1-(fit.Susceptible[i]/population))*population;
 		fit_AI_cumul.push({x:dates2[i],y:y_temp});
 
-		var z_temp = fit.Asymptomatic[i]/(fit.Infected[i]+fit.Asymptomatic[i]);
+		if(fit.Asymptomatic[i]>0)
+			var z_temp = fit.Asymptomatic[i]/(fit.Infected[i]+fit.Asymptomatic[i]);
+		else
+			var z_temp = 0;
+
 		fit_ratio.push({x:dates2[i],y:z_temp});
 
 	}
@@ -237,7 +241,11 @@ async function draw_charts(actual,fit,projections,repr_ratio,population){
 		var y_temp = (1-(projections.Susceptible[i]/population))*population;
 		proj_AI_cumul.push({x:dates3[i],y:y_temp});
 
-		var z_temp = projections.Asymptomatic[i]/(projections.Infected[i]+projections.Asymptomatic[i]);
+		if(projections.Asymptomatic[i]>0)
+			var z_temp = projections.Asymptomatic[i]/(projections.Infected[i]+projections.Asymptomatic[i]);
+		else
+			var z_temp = 0;
+
 		proj_ratio.push({x:dates3[i],y:z_temp});
 
 	}
