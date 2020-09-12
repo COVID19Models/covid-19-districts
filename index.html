@@ -10,25 +10,18 @@
 
   <title>SAIR Model-COVID-19</title>
 
-  <!-- Bootstrap core CSS -->
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-  <!-- <base href="/"> -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <!-- <link href="vendor/bootstrap/css/bootstrap.css.map" rel="stylesheet"> -->
   <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
-  <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 
-  <!-- Custom styles for this template -->
   <link href="css/scrolling-nav.css" rel="stylesheet">
   <link href="style.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <!-- <script src="chartjs-plugin-annotation/chartjs-plugin-annotation.js"></script> -->
 
 </head>
 
 <body id="page-top">
-  <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <div class="container">
       <a class="navbar-brand js-scroll-trigger" href="#page-top"></a>
@@ -59,36 +52,14 @@
 
   <header class="bg-primary text-white">
     <div class="container text-center">
-      <!-- <div class="row"> -->
-        <!-- <div class="col-md-1"></div> -->
-        <!-- <div class="col-md-10"> -->
         <h1>SAIR Model</h1>
         <p class="lead"><h2>Region-specific COVID-19 predictions for 200 Indian districts</h2></p>
         <img src="jncasr.jpg" alt="JNCASR logo" style=" width: 10%; height: auto;">        
         <img src="iit.png" alt="IIT Bombay logo" style=" width: 10%; height: auto;">
         <img src="iisc.jpg" alt="IISC logo" style=" width: 10%; height: auto;">
-
-
-        <!-- <div class="col-md-1"></div> -->
-        <!-- </div> -->
-        <!-- <div class="col-md-1"></div>         -->
-      <!-- </div> -->
     </div>
-  </header>
+  </header> 
 
-  
-          
-           
-          <!-- </div>
-            
-            <p> For queries and clarifications not covered in the FAQ section, please write to Prof. <a href="http://www.jncasr.ac.in/ansumali/">Santosh Ansumali</a> or <a href="http://www.jncasr.ac.in/meher/">Prof. Meher Prakash</a> or <a href="http://www.kumarlab.com/">Prof. Aloke Kumar</a> for details regarding the Patient projection data.</p>
-          </p>         
-         
-        <div class="col-lg-1 mx-auto"></div>        
-      </div>
-    </div>
-  </section> -->
- <!-- --> 
   <section id="about" style="padding-bottom: 40px; padding-top:100px">
     <div class="container">
       <div class="row">
@@ -174,34 +145,13 @@
   </div>
   </section>
 
-
- <!-- <div class="row">
-              <div class="col-md-4 mx-auto">
-            <h5 id="team" style="margin-top: 50px">Web Team</h5>                
-                <p class="lead">
-                  <ul>
-                    <li>Samarth Agrawal</li>              
-                    <li>Salvatore Arcidiacono</li>              
-                    <li>Soumyadeep Bhattacharya</li>                 
-                    <li>Sanjay Chandran</li>                         
-                    <li>Shaurya Kausal</li>
-                    <li>Mrunal Nasery</li>              
-                  </ul>
-                </p>                
-              </div>
-            </div> -->
-
-
-  <section id="prediction" class="bg-light" style="padding-top: 10px;padding-bottom:40px">
-    
+  <section id="prediction" class="bg-light" style="padding-top: 10px;padding-bottom:40px">    
     <div class="container">
       <div class="row">
         <div class="col-lg-12 mx-auto" style="text-align: center; margin-bottom: 0px"> 
-          <!-- <h2>Predictions</h2> --> 
         </div>
       </div>
       <div class="row sticky sticky-top sticky-offset" style="background-color: #f8f9fa;opacity: 1; padding-bottom:30px">
-        <!-- <div class="col-md-3 mx-auto"></div> -->
         <div class="col-md-3 mx-auto" style="text-align: center;margin-top: 5px"> 
          <select onchange="state_event()" id="state" class="browser-default custom-select" size="1" style="max-height:150px; overflow-y:scroll ; width:70% ;">
         </select>
@@ -225,17 +175,7 @@
         </div>    
         </div>         
       </div>
-       
-              <!-- <button onclick="on_actual()" class="btn btn-mi-small" style="color:purple; width:70%; float: none; margin: auto ;">
-              <u>Actual Data</u>
-              </button>
-              <button onclick="on_fit()" class="btn btn-mi-small"  style="color:purple; width:70%; float: none; margin: auto;">
-                <u>Fit</u>
-              </button>
-              <button onclick="on_projections()" class="btn btn-mi-small"  style="color:purple; width:70%; float: none; margin: auto;">
-                <u>Projections</u>
-              </button> -->
-                   
+                  
       <div class="row" style="margin-top: 100px">
             <div class="col-md-1"></div>          
             <div class="col-md-10 chart-container" style="position: relative; width:100%">           
@@ -438,19 +378,14 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="py-5 bg-dark">
     <div class="container">
-      <!-- <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p> -->
     </div>
-    <!-- /.container -->
   </footer>
 
-  <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Plugin JavaScript -->
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
