@@ -3,9 +3,9 @@
 
 .top-buffer-left { margin-top:80px; };
 
-div.model_inputs{
+/*div.model_inputs{
     horizontal-align: center;
-};
+};*/
 
 div.sticky-offset{
     top:80px;

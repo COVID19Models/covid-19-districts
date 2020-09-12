@@ -23,10 +23,10 @@ const ctx7 = document.getElementById('myChart7').getContext('2d');
 window.onload = function () {
 
 
-    if (location.hash) {
-        window.scrollTo(0, 0);
+//     if (location.hash) {
+//         window.scrollTo(0, 0);
     
-};
+// };
    
     document.getElementById('customSwitch1').checked == false;
     initialise();
