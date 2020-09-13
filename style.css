@@ -17,7 +17,7 @@ div.sticky-offset{
   /*top: 200px;*/
   /*background-color: yellow;*/
   padding-top: 60px;
-  font-size: 20px;
+  font-size: 20px;  
     /*padding: 50px;
     padding-top: 100*//*px;
     font-size: 20px;
@@ -93,6 +93,10 @@ h5{
     /*height: 60rem;  */
     height:330px
   }
+  p,h4,h5,h3,li{
+    margin-left : 1rem;
+    margin-right:1rem;
+  }
 }
 @media screen and (min-width: 992px) {
   .small-screen {
@@ -103,6 +107,10 @@ h5{
   .big-screen {
     /*display: none;*/
   }
+ /* .body{
+    padding-left: 45px;
+    padding-right: 45px;
+  }*/
 }
 
 div.btn-mi-small{
