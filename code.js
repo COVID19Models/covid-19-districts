@@ -121,7 +121,7 @@ function draw1(dataset1,dataset2,dataset3){
                               
                             callback:function(value,index,values){
 
-                                if(index == values.length-1 || (index%50 == 0) && (index!==0)){
+                                if(index == values.length-1 || (index%60 == 0) && (index!==0)){
                                 // console.log(value);
                                 return value;
                             }
@@ -515,7 +515,7 @@ function draw3(dataset1,dataset2,dataset3){
                             autoSkip:false,
                             callback:function(value,index,values){
 
-                                if(index == values.length-1 || (index%50==0 && index!=0)){
+                                if(index == values.length-1 || (index%60==0 && index!=0)){
                                 // console.log(value);
                                 return value;
                             }
@@ -707,7 +707,7 @@ function draw4(dataset1,dataset2,dataset3){
                             autoSkip:false,
                             callback:function(value,index,values){
 
-                                if(index == values.length-1 || (index%50==0 && index!=0)){
+                                if(index == values.length-1 || (index%60==0 && index!=0)){
                                 // console.log(value);
                                 return value;
                             }
@@ -882,7 +882,7 @@ function draw5(dataset1,dataset2){
                             autoSkip:false,
                             callback:function(value,index,values){
 
-                                if(index == values.length-1 || (index%50==0 && index!=0)){
+                                if(index == values.length-1 || (index%60==0 && index!=0)){
                                 // console.log(value);
                                 return value;
                             }
@@ -1053,7 +1053,7 @@ function draw6(dataset1,dataset2){
                             autoSkip:false,
                             callback:function(value,index,values){
 
-                                if(index == values.length-1 || (index%50==0 && index!=0)){
+                                if(index == values.length-1 || (index%60==0 && index!=0)){
                                 // console.log(value);
                                 return value;
                             }
