@@ -6,7 +6,7 @@ const dates1=[];
 const dates2=[];
 const dates3=[];
 const projection_length = 61;
-const final_date = new Date(2020,7,31);
+const final_date = new Date(2020,8,30);
 var size1,size2,size3;
 
 
