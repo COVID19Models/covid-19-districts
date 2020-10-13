@@ -1152,26 +1152,11 @@ function draw7(dataset){
         data: {
             datasets: [{
                 data: dataset,
-                borderColor: [
-                    chartColors.red,
-                    chartColors.red,
-                    chartColors.red,
-                    chartColors.red,
-                    chartColors.red,
-                    chartColors.red,
-                    chartColors.red,
-                    chartColors.red,                    
-                ],
-                 backgroundColor:[
+                borderColor: 
+                    chartColors.red,        
+                
+                 backgroundColor:
                     'rgb(255, 99, 132,0.2)',
-                    'rgb(255, 99, 132,0.2)',
-                    'rgb(255, 99, 132,0.2)',
-                    'rgb(255, 99, 132,0.2)',
-                    'rgb(255, 99, 132,0.2)',
-                    'rgb(255, 99, 132,0.2)',
-                    'rgb(255, 99, 132,0.2)',
-                    'rgb(255, 99, 132,0.2)',                    
-                 ],
                  borderWidth:2,
                  barThickness: 30,
             }],
@@ -1204,9 +1189,9 @@ function draw7(dataset){
                             source:'lables',
                             autoSkip:false,
                             min : new Date(2020,4,5),
-                            max : new Date(2020,8,15),
+                            max : new Date(2020,9,5),
                             callback:function(value,index,values){                               
-                                if(value=="Aug 15" || value=="Aug 31" || value=="May 15" || value=="May 30" || value=="Jun 15" || value=="Jun 30" || value=="Jul 15" || value=="Jul 31")
+                                if(value=="Aug 15" || value=="Aug 31" || value=="May 15" || value=="May 30" || value=="Jun 15" || value=="Jun 30" || value=="Jul 15" || value=="Jul 31" || value=="Sep 30" || value=="Sep 15")
                                 return value;                            
                             },                         
                         },
